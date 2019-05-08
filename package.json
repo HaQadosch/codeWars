@@ -1,0 +1,32 @@
+{
+  "name": "codeWars",
+  "version": "1.0.0",
+  "description": "https://www.codewars.com",
+  "main": "scratch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "dependencies": {
+    "prettier": "^1.17.0"
+  },
+  "devDependencies": {
+    "husky": "^2.2.0",
+    "pretty-quick": "^1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaQadosch/codeWars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaQadosch/codeWars/issues"
+  },
+  "homepage": "https://github.com/HaQadosch/codeWars#readme"
+}
