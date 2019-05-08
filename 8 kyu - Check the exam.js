@@ -8,11 +8,10 @@
  * checkExam(["a", "a", "b", "c"], ["a", "a", "b", "c"]) → 16
  * checkExam(["b", "c", "b", "a"], ["",  "a", "a", "c"]) → 0
  */
-
-function checkExam(array1: string[], array2: string[]): number {
+function checkExam(array1, array2) {
   const succes = 4;
   const fail = -1;
-  let score = array1.reduce((score: number, elt: string, index: number) => {
+  let score = array1.reduce((score, elt, index) => {
     if (array2[index] !== "") {
       score += elt === array2[index] ? succes : fail;
       // if (score < 0) {
@@ -26,8 +25,8 @@ function checkExam(array1: string[], array2: string[]): number {
   }
   return score;
 }
-
 checkExam(["a", "a", "b", "b"], ["a", "c", "b", "d"]); /*?*/
 checkExam(["a", "a", "c", "b"], ["a", "a", "b", ""]); /*?*/
 checkExam(["a", "a", "b", "c"], ["a", "a", "b", "c"]); /*?*/
 checkExam(["b", "c", "b", "a"], ["", "a", "a", "c"]); /*?*/
+//# sourceMappingURL=8 kyu - Check the exam.js.map
