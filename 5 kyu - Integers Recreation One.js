@@ -8,37 +8,31 @@
  * The form of the examples may change according to the language, see Example Tests: for more details.
  */
 function listSquared(m, n) {
-  [...getAllDivisors(1, 50)]; /*?*/
-  return [...getAllDivisors(m, n)]
-    .map(addTotal)
-    .filter(({ total }) => isSquared(Math.sqrt(total)))
-    .map(({ val, total }) => [val, total]);
-  function* getAllDivisors(start, end) {
-    function divisors(n) {
-      function inner(actual, divs) {
-        if (n < actual) {
-          return divs;
-        }
-        return inner(actual + 1, n % actual === 0 ? divs.concat(actual) : divs);
+  const allDivs = [];
+  function divisors(n) {
+    function inner(actual, divs) {
+      if (n < actual) {
+        return divs;
       }
-      return inner(0, []);
+      if (n % actual === 0) {
+        divs.push(actual);
+      }
+      return inner(actual + 1, divs);
     }
-    let actual = start;
-    while (actual <= end) {
-      yield { val: actual, divs: divisors(actual) };
-      ++actual;
-    }
+    return inner(0, []);
   }
+  let actual = m;
+  while (actual <= n) {
+    const divs = divisors(actual);
+    const total = divs.reduce((total, actual) => actual * actual + total);
+    if (isSquared(Math.sqrt(total))) {
+      allDivs.push([actual, total]);
+    }
+    ++actual;
+  }
+  return allDivs;
   function isSquared(n) {
     return (n | 0) === n;
   }
-  function addTotal({ val, divs }) {
-    return {
-      val,
-      divs,
-      total: divs.reduce((total, actual) => actual * actual + total)
-    };
-  }
 }
-listSquared(1, 50); /*?*/
 //# sourceMappingURL=5 kyu - Integers Recreation One.js.map

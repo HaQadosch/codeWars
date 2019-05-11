@@ -8,50 +8,32 @@
  * The form of the examples may change according to the language, see Example Tests: for more details.
  */
 function listSquared(m: number, n: number): number[][] {
-  [...getAllDivisors(1, 50)]; /*?*/
-  return [...getAllDivisors(m, n)]
-    .map(addTotal)
-    .filter(({ total }) => isSquared(Math.sqrt(total)))
-    .map(({ val, total }) => [val, total]);
-
-  type DivisorsType = {
-    val: number;
-    divs?: number[];
-    total?: number;
-  };
-
-  function* getAllDivisors(
-    start: number,
-    end: number
-  ): IterableIterator<DivisorsType> {
-    function divisors(n: number): number[] {
-      function inner(actual: number, divs: number[]) {
-        if (n < actual) {
-          return divs;
-        }
-        return inner(actual + 1, n % actual === 0 ? divs.concat(actual) : divs);
+  const allDivs = [];
+  function divisors(n: number): number[] {
+    function inner(actual: number, divs: number[]) {
+      if (n < actual) {
+        return divs;
       }
-      return inner(0, []);
+      if (n % actual === 0) {
+        divs.push(actual);
+      }
+      return inner(actual + 1, divs);
     }
-
-    let actual = start;
-    while (actual <= end) {
-      yield { val: actual, divs: divisors(actual) };
-      ++actual;
-    }
+    return inner(0, []);
   }
+
+  let actual = m;
+  while (actual <= n) {
+    const divs = divisors(actual);
+    const total = divs.reduce((total, actual) => actual * actual + total);
+    if (isSquared(Math.sqrt(total))) {
+      allDivs.push([actual, total]);
+    }
+    ++actual;
+  }
+  return allDivs;
 
   function isSquared(n: number): boolean {
     return (n | 0) === n;
   }
-
-  function addTotal({ val, divs }: DivisorsType): DivisorsType {
-    return {
-      val,
-      divs,
-      total: divs.reduce((total, actual) => actual * actual + total)
-    };
-  }
 }
-
-listSquared(1, 50); /*?*/
